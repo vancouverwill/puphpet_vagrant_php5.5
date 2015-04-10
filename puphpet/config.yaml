@@ -37,7 +37,7 @@ vagrantfile-local:
                 group: www-data
                 source: ./
                 target: /var/www
-                sync_type: nfs
+                sync_type: default
                 rsync:
                     args:
                         - '--verbose'
@@ -115,6 +115,12 @@ apache:
                     require:
                         - 'all granted'
                     custom_fragment: ''
+                    files_match:
+                        p1ccptvz4g2w:
+                            provider: filesmatch
+                            path: \.php$
+                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                            custom_fragment: ''
             ssl_cert: ''
             ssl_key: ''
             ssl_chain: ''
@@ -143,6 +149,12 @@ apache:
                     require:
                         - 'all granted'
                     custom_fragment: ''
+                    files_match:
+                        p1ccptvz4g2w:
+                            provider: filesmatch
+                            path: \.php$
+                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                            custom_fragment: ''
             docroot: /var/www/sprout
             port: '80'
             custom_fragment: ''
@@ -168,6 +180,12 @@ apache:
                     require:
                         - 'all granted'
                     custom_fragment: ''
+                    files_match:
+                        p1ccptvz4g2w:
+                            provider: filesmatch
+                            path: \.php$
+                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                            custom_fragment: ''
             port: '80'
             custom_fragment: ''
             ssl_cert: ''
@@ -303,7 +321,7 @@ mysql:
             sql: ''
     grants:
         ejthQj4vUcZl:
-            user: dbuser
+            user: sprout_app
             table: '*.*'
             privileges:
                 - ALL

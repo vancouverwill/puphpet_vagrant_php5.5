@@ -1,3 +1,4 @@
-./sprout-web-wordpress
-./sprout
+sprout-web-wordpress/*
+sprout/*
 ./awesome
+.vagrant
