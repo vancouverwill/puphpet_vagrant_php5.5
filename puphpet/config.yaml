@@ -257,6 +257,7 @@ php:
         pecl:
             - pecl_http
             - oauth
+            - redis
     ini:
         display_errors: On
         session.save_path: /var/lib/php/session
@@ -351,7 +352,7 @@ mongodb:
         port: '27017'
     databases: {  }
 redis:
-    install: '0'
+    install: '1'
     settings:
         conf_port: '6379'
 mailcatcher:
