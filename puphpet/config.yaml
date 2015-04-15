@@ -131,6 +131,7 @@ apache:
             servername: admin.dev.puppetsproutatwork.com
             serveraliases:
                 - greentrek.dev.puppetsproutatwork.com
+                - greentrek.dev.puppetsproutatwork.com
                 - platform.dev.puppetsproutatwork.com
                 - ccs.dev.puppetsproutatwork.com
                 - mckinsey.dev.puppetsproutatwork.com
@@ -173,6 +174,36 @@ apache:
                 wee2rwevd:
                     provider: directory
                     path: /var/www/sprout-web-wordpress
+                    options:
+                        - Indexes
+                        - FollowSymlinks
+                        - MultiViews
+                    allow_override:
+                        - All
+                    require:
+                        - 'all granted'
+                    custom_fragment: ''
+                    files_match:
+                        p1ccptvz4g2w:
+                            provider: filesmatch
+                            path: \.php$
+                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                            custom_fragment: ''
+            port: '80'
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+        xo0Algorithmsk7hw:
+            servername: www.php_algorithms.com
+            serveraliases:
+                - php_algorithms.com
+            docroot: /var/www/php_algorithms
+            directories:
+                wee2rwevd:
+                    provider: directory
+                    path: /var/www/php_algorithms
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -259,9 +290,10 @@ php:
             - oauth
     ini:
         display_errors: On
+        display_startup_errors: On
         session.save_path: /var/lib/php/session
         date.timezone: UTC
-        error_reporting: '1'
+        error_reporting: E_ALL | E_STRICT
         error_log: /tmp/php_error_log.log
 hhvm:
     install: '0'
