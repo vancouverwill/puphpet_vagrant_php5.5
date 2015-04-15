@@ -321,6 +321,9 @@ mysql:
         FbYfVSh6E7lQ:
             name: sprout_app
             sql: ''
+        FbYfVSh6min:
+            name: sprout_app_minified
+            sql: ''
         R3X2EQxkDIGP:
             name: sprout_web_wordpress
             sql: ''
