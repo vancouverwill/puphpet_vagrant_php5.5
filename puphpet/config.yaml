@@ -204,7 +204,7 @@ apache:
             ssl_cipher: ''
             directories:
                 avd_t21gxikv7zrt:
-                    path: ''
+                    path: /var/www/sprout
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -237,7 +237,7 @@ apache:
             ssl_cipher: ''
             directories:
                 avd_t21gxikv7zrt:
-                    path: ''
+                    path: /var/www/prout-web-wordpress
                     options:
                         - Indexes
                         - FollowSymlinks
