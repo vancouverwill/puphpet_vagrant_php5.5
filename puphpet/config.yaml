@@ -1,19 +1,17 @@
----
-vagrantfile-local:
+vagrantfile:
+    target: local
     vm:
-        # box: puphpet/ubuntu1404-x32
-        # box_url: puphpet/ubuntu1404-x32
         box: puphpet/ubuntu1204-x64
         box_url: puphpet/ubuntu1204-x64
-        hostname: ''
-        memory: '2048'
+        hostname: local.sprout.puphpet
+        memory: '2056'
         cpus: '2'
         chosen_provider: virtualbox
         network:
-            private_network: 192.168.56.106
+            private_network: 192.168.56.101
             forwarded_port:
-                sHDy0wrvWfb6:
-                    host: '8675'
+                vflnp_tw7xunfcdigc:
+                    host: '6874'
                     guest: '22'
         post_up_message: ''
         provider:
@@ -34,9 +32,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            qZ02DbYqhgNw:
-                owner: www-data
-                group: www-data
+            vflsf_4yfnm3kg92da:
                 source: ./
                 target: /var/www
                 sync_type: nfs
@@ -47,7 +43,10 @@ vagrantfile-local:
                         - '-z'
                     exclude:
                         - .vagrant/
-                    auto: 'false'
+                        - .git/
+                    auto: 'true'
+                owner: www-data
+                group: www-data
         usable_port_range:
             start: 10200
             stop: 10500
@@ -76,12 +75,64 @@ users_groups:
     install: '1'
     groups: {  }
     users: {  }
-cron:
-    install: '1'
-    jobs: {  }
 firewall:
     install: '1'
     rules: {  }
+cron:
+    install: '1'
+    jobs: {  }
+nginx:
+    install: '0'
+    settings:
+        default_vhost: 1
+        proxy_buffer_size: 128k
+        proxy_buffers: '4 256k'
+    upstreams: {  }
+    vhosts:
+        nxv_39u3916m6ug0:
+            server_name: awesome.dev
+            server_aliases:
+                - www.awesome.dev
+            www_root: /var/www/awesome
+            listen_port: '80'
+            index_files:
+                - index.html
+                - index.htm
+                - index.php
+            client_max_body_size: 1m
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_port: '443'
+            ssl_protocols: ''
+            ssl_ciphers: ''
+            rewrite_to_https: '1'
+            spdy: '1'
+            locations:
+                nxvl_6or3r60218rl:
+                    location: /
+                    autoindex: off
+                    try_files:
+                        - $uri
+                        - $uri/
+                        - /index.php$is_args$args
+                    fastcgi: ''
+                    fastcgi_index: ''
+                    fastcgi_split_path: ''
+                nxvl_bmcdn904tsee:
+                    location: '~ \.php$'
+                    autoindex: off
+                    try_files:
+                        - $uri
+                        - $uri/
+                        - /index.php$is_args$args
+                    fastcgi: '127.0.0.1:9000'
+                    fastcgi_index: index.php
+                    fastcgi_split_path: '^(.+\.php)(/.*)$'
+                    fast_cgi_params_extra:
+                        - 'SCRIPT_FILENAME $request_filename'
+                        - 'APP_ENV dev'
+    proxies: {  }
 apache:
     install: '1'
     settings:
@@ -95,7 +146,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        q0ft4nixxg6z:
+        av_88js3dqo1oy5:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
@@ -104,9 +155,15 @@ apache:
             setenv:
                 - 'APP_ENV dev'
             custom_fragment: ''
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+            ssl_protocol: ''
+            ssl_cipher: ''
             directories:
-                7ttxodlfm60t:
-                    provider: directory
+                avd_3sn9kuxsazpv:
                     path: /var/www/awesome
                     options:
                         - Indexes
@@ -118,19 +175,15 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        p1ccptvz4g2w:
-                            provider: filesmatch
+                        avdfm_ubyo309q8x60:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_chain: ''
-            ssl_certs_dir: ''
-        n3ippnkzwez7:
+                            provider: filesmatch
+                    provider: directory
+        av_lvvt3e78myya:
             servername: admin.dev.puppetsproutatwork.com
             serveraliases:
-                - greentrek.dev.puppetsproutatwork.com
                 - greentrek.dev.puppetsproutatwork.com
                 - platform.dev.puppetsproutatwork.com
                 - ccs.dev.puppetsproutatwork.com
@@ -139,41 +192,19 @@ apache:
                 - sprout.dev.puppetsproutatwork.com
                 - optime.dev.puppetsproutatwork.com
                 - external_service.dev.puppetsproutatwork.com
-            directories:
-                wee2rwevd:
-                    provider: directory
-                    path: /var/www/sprout
-                    options:
-                        - Indexes
-                        - FollowSymlinks
-                        - MultiViews
-                    allow_override:
-                        - All
-                    require:
-                        - 'all granted'
-                    custom_fragment: ''
-                    files_match:
-                        p1ccptvz4g2w:
-                            provider: filesmatch
-                            path: \.php$
-                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                            custom_fragment: ''
             docroot: /var/www/sprout
             port: '80'
             custom_fragment: ''
+            ssl: '0'
             ssl_cert: ''
             ssl_key: ''
             ssl_chain: ''
             ssl_certs_dir: ''
-        xo0ssssbk7hw:
-            servername: www.sproutatwork.com
-            serveraliases:
-                - www.sproutatwork.com
-            docroot: /var/www/sprout-web-wordpress
+            ssl_protocol: ''
+            ssl_cipher: ''
             directories:
-                wee2rwevd:
-                    provider: directory
-                    path: /var/www/sprout-web-wordpress
+                avd_t21gxikv7zrt:
+                    path: ''
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -184,71 +215,49 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        p1ccptvz4g2w:
-                            provider: filesmatch
+                        avdfm_vrqaq8wouk4f:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
+                            provider: filesmatch
+                    provider: directory
+        av_sdfsdfwefsya:
+            servername: www.sproutatwork.com
+            serveraliases:
+                - www.sproutatwork.com
+            docroot: /var/www/prout-web-wordpress
             port: '80'
             custom_fragment: ''
+            ssl: '0'
             ssl_cert: ''
             ssl_key: ''
             ssl_chain: ''
             ssl_certs_dir: ''
-nginx:
-    install: 0
-    settings:
-        default_vhost: 1
-        proxy_buffer_size: 128k
-        proxy_buffers: '4 256k'
-    upstreams: {  }
-    vhosts:
-        6chazibpryby:
-            proxy: ''
-            server_name: awesome.dev
-            server_aliases:
-                - www.awesome.dev
-            www_root: /var/www/awesome
-            listen_port: '80'
-            index_files:
-                - index.html
-                - index.htm
-                - index.php
-            client_max_body_size: 1m
-            locations:
-                d38hnvyagqga:
-                    location: /
-                    try_files:
-                        - $uri
-                        - $uri/
-                        - index.php
-                    fastcgi: ''
-                    fastcgi_index: ''
-                    fastcgi_split_path: ''
-                tuywjssnpssu:
-                    location: '~ \.php$'
-                    try_files:
-                        - $uri
-                        - $uri/
-                        - index.php
-                        - /index.php$is_args$args
-                    fastcgi: '127.0.0.1:9000'
-                    fastcgi_index: index.php
-                    fastcgi_split_path: '^(.+\.php)(/.*)$'
-                    fast_cgi_params_extra:
-                        - 'SCRIPT_FILENAME $request_filename'
-                        - 'APP_ENV dev'
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_port: '443'
+            ssl_protocol: ''
+            ssl_cipher: ''
+            directories:
+                avd_t21gxikv7zrt:
+                    path: ''
+                    options:
+                        - Indexes
+                        - FollowSymlinks
+                        - MultiViews
+                    allow_override:
+                        - All
+                    require:
+                        - 'all granted'
+                    custom_fragment: ''
+                    files_match:
+                        avdfm_vrqaq8wouk4f:
+                            path: \.php$
+                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                            custom_fragment: ''
+                            provider: filesmatch
+                    provider: directory
 php:
     install: '1'
     settings:
         version: '55'
-    fpm_settings:
-        port: 9000
-    composer: '1'
-    composer_home: ''
     modules:
         php:
             - cli
@@ -262,22 +271,25 @@ php:
     ini:
         display_errors: On
         display_startup_errors: On
+        error_reporting: '-1'
         session.save_path: /var/lib/php/session
         date.timezone: UTC
-        error_reporting: E_ALL | E_STRICT
-        error_log: /tmp/php_error_log.log
-hhvm:
-    install: '0'
-    nightly: 0
+        error_log: /tmp/php_cli.log
+    fpm_ini:
+        error_log: /tmp/php_fpm.log
+        display_errors: On
+        error_reporting: 'E_ALL | E_STRICT'
+        display_startup_errors: On
+    fpm_pools:
+        phpfp_kmby92l104xt:
+            ini:
+                prefix: www
+                listen: '127.0.0.1:9000'
+                security.limit_extensions: .php
+                user: www-user
+                group: www-data
     composer: '1'
     composer_home: ''
-    settings:
-        host: 127.0.0.1
-        port: '9000'
-    ini:
-        display_errors: On
-        error_reporting: '-1'
-    timezone: null
 xdebug:
     install: '1'
     settings:
@@ -288,47 +300,76 @@ xdebug:
         xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
         xdebug.max_nesting_level: '1000'
+blackfire:
+    install: '0'
+    settings:
+        server_id: ''
+        server_token: ''
+        agent:
+            http_proxy: ''
+            https_proxy: ''
+            log_file: stderr
+            log_level: '1'
+        php:
+            agent_timeout: '0.25'
+            log_file: ''
+            log_level: '1'
 xhprof:
     install: '0'
 wpcli:
     install: '0'
-    version: v0.17.1
+    version: v0.19.0
 drush:
     install: '0'
     version: 6.3.0
 ruby:
     install: '1'
     versions: {  }
-nodejs:
-    install: '0'
-    npm_packages: {  }
 python:
     install: '1'
     packages: {  }
     versions: {  }
+nodejs:
+    install: '0'
+    npm_packages: {  }
+hhvm:
+    install: '0'
+    nightly: 0
+    composer: '1'
+    composer_home: ''
+    settings: {  }
+    server_ini:
+        hhvm.server.host: 127.0.0.1
+        hhvm.server.port: '9000'
+        hhvm.log.use_log_file: '1'
+        hhvm.log.file: /var/log/hhvm/error.log
+    php_ini:
+        display_errors: On
+        error_reporting: '-1'
+        date.timezone: UTC
 mysql:
     install: '1'
     settings:
         version: '5.6'
-        root_password: Q1w2e3r4
+        root_password: 'Q1w2e3r4'
         override_options: {  }
     adminer: 0
     users:
-        2LE2YEZ8Lfcg:
+        mysqlnu_xoceyvmu5rtq:
             name: sprout_app
             password: Q1w2e3r4
     databases:
-        FbYfVSh6E7lQ:
+        mysqlnd_mf1h4tcq7qmh:
             name: sprout_app
             sql: ''
-        FbYfVSh6min:
+        mysqlnd_1qqjnxq59ajp:
             name: sprout_app_minified
             sql: ''
-        R3X2EQxkDIGP:
+        mysqlnd_9zk8y7ylbgst:
             name: sprout_web_wordpress
             sql: ''
     grants:
-        ejthQj4vUcZl:
+        mysqlng_shg8a1xrfhrj:
             user: sprout_app
             table: '*.*'
             privileges:
@@ -345,10 +386,6 @@ postgresql:
     users: {  }
     grants: {  }
     adminer: 0
-sqlite:
-    install: '0'
-    adminer: 0
-    databases: {  }
 mongodb:
     install: '0'
     settings:
@@ -360,6 +397,10 @@ redis:
     install: '1'
     settings:
         conf_port: '6379'
+sqlite:
+    install: '0'
+    adminer: 0
+    databases: {  }
 mailcatcher:
     install: '0'
     settings:
