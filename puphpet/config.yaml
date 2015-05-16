@@ -310,13 +310,13 @@ mysql:
     install: '1'
     settings:
         version: '5.6'
-        root_password: Q1w2e3r4
+        root_password: 123
         override_options: {  }
     adminer: 0
     users:
         2LE2YEZ8Lfcg:
             name: sprout_app
-            password: Q1w2e3r4
+            password: 123
     databases:
         FbYfVSh6E7lQ:
             name: sprout_app
