@@ -275,11 +275,9 @@ php:
         session.save_path: /var/lib/php/session
         date.timezone: UTC
         error_log: /tmp/php_cli.log
+        error_reporting: 'E_ALL | E_STRICT'
     fpm_ini:
         error_log: /tmp/php_fpm.log
-        display_errors: On
-        error_reporting: 'E_ALL | E_STRICT'
-        display_startup_errors: On
     fpm_pools:
         phpfp_kmby92l104xt:
             ini:
