@@ -237,7 +237,7 @@ apache:
             ssl_cipher: ''
             directories:
                 avd_t21gxikv7zrt:
-                    path: /var/www/prout-web-wordpress
+                    path: /var/www/sprout-web-wordpress
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -263,6 +263,7 @@ php:
             - cli
             - intl
             - mcrypt
+            - gd
         pear: {  }
         pecl:
             - pecl_http
